@@ -4,8 +4,9 @@
 angularFormsApp.controller('efController',
     function efController($scope, efService) {
 
-        // this is the model
+        // this is the model for employee
         $scope.employee = efService.employee;
+
 
         $scope.departments = [
                 "Engineering",
@@ -13,6 +14,10 @@ angularFormsApp.controller('efController',
                 "Finance",
                 "Administration"
         ];
+
+        $scope.submitForm = function () {
+            alert("Submitted");
+        }
 
         // is accessed with ng-model in form for 2-way binding
         // do not use ng-bind or {{ }} for 2 way binding, they are for 1-way binding only

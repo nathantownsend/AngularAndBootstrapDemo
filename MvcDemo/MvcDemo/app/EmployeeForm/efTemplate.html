@@ -1,4 +1,4 @@
-﻿
+﻿<!-- ng-submit="submitForm()" - uses ajax to submit the form to the specified method on the controller -->
 <form class="form-horizontal" role="form">
 
     <fieldset>
@@ -70,7 +70,8 @@
     </fieldset>
 
     <div class="col-sm-offset-3 col-sm-3">
-        <input type="submit" class="btn btn-primary" value="Submit" />
+        <!-- ng-click="" specifies function on $scope on controller, don't use both form and button versions or it could double submit -->
+        <input type="submit" class="btn btn-primary" value="Submit" ng-click="submitForm()" />
     </div>
 
 

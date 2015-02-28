@@ -1,11 +1,21 @@
 ﻿
 // use global app variable, and call the controller method to create a controler called efController, also pass a function to get
 // a scope that uses a reference to service. Sets employee to services employee field
+// routeParams passes data
 angularFormsApp.controller('efController',
-    function efController($scope, efService) {
+    function efController($scope, $window, $routeParams, DataService) {
 
-        // this is the model for employee
-        $scope.employee = efService.employee;
+        // if the route params contains an id parameter then get the data for the employee, else it is a new employee
+        if ($routeParams.id)
+            $scope.employee = DataService.getEmployee($routeParams.id);
+        else
+            $scope.employee = { id: 0 };
+
+        // this was a static model for employee, but not realistic, replaced with above
+        //$scope.employee = DataService.employee;
+
+        // make a deep copy for cancel / submit operations
+        $scope.editableEmployee = angular.copy($scope.employee);
 
 
         $scope.departments = [
@@ -15,10 +25,23 @@ angularFormsApp.controller('efController',
                 "Administration"
         ];
 
+
         $scope.submitForm = function () {
-            alert("Submitted");
+            if ($scope.editableEmployee.id == 0) {
+                // insert employee
+                DataService.insertEmployee($scope.editableEmployee);
+            } else {
+                // update employee
+                DataService.updateEmployee($scope.editableEmployee);1
+            }
+
+            $scope.employee = angular.copy($scope.editableEmployee);
+            $window.history.back();
         }
 
-        // is accessed with ng-model in form for 2-way binding
-        // do not use ng-bind or {{ }} for 2 way binding, they are for 1-way binding only
+        $scope.cancelForm = function () {
+            $window.history.back();
+        }
+
+
     });

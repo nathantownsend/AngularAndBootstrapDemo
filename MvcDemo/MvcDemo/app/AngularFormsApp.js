@@ -32,10 +32,11 @@ angularFormsApp.controller("HomeController",
 
         $scope.showCreateEmployeeForm = function () {
             // use the ui-bootstrap modal service instead of loading in the form
-            $modal.open({
+            /*$modal.open({
                 templateUrl: 'app/EmployeeForm/efTemplate.html',
                 controller: 'efController'
-            });
+            }); */
+            $location.path('/newEmployeeForm');
         };
 
         $scope.showUpdateEmployeeForm = function (id) {

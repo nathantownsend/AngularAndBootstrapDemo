@@ -3,7 +3,7 @@
 // a scope that uses a reference to service. Sets employee to services employee field
 // routeParams passes data
 angularFormsApp.controller('efController',
-    function efController($scope, $window, $routeParams, DataService) {
+    function efController($scope, $window, $routeParams, $modalInstance, DataService) {
 
         // if the route params contains an id parameter then get the data for the employee, else it is a new employee
         if ($routeParams.id)
@@ -11,8 +11,6 @@ angularFormsApp.controller('efController',
         else
             $scope.employee = { id: 0 };
 
-        // this was a static model for employee, but not realistic, replaced with above
-        //$scope.employee = DataService.employee;
 
         // make a deep copy for cancel / submit operations
         $scope.editableEmployee = angular.copy($scope.employee);
@@ -36,11 +34,11 @@ angularFormsApp.controller('efController',
             }
 
             $scope.employee = angular.copy($scope.editableEmployee);
-            $window.history.back();
+            $modalInstance.close();
         }
 
         $scope.cancelForm = function () {
-            $window.history.back();
+            $modalInstance.dismiss();
         }
 
 
